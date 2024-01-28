@@ -1,0 +1,76 @@
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+int main() {
+  // Oyunun boyutunu ayarla
+  int genişlik = 200;
+  int yükseklik = 200;
+
+  // Oyunun uzaylılarını oluştur
+  int uzaylıSayisi = 10;
+  int uzaylılar[uzaylıSayisi][2];
+  for (int i = 0; i < uzaylıSayisi; i++) {
+    uzaylılar[i][0] = rand() % genişlik;
+    uzaylılar[i][1] = rand() % yükseklik;
+  }
+
+  // Oyunu oyna
+  while (true) {
+    // Ekranı temizle
+    for (int i = 0; i < genişlik; i++) {
+      for (int j = 0; j < yükseklik; j++) {
+        cout << " ";
+      }
+    }
+
+    // Uzaylıları göster
+    for (int i = 0; i < uzaylıSayisi; i++) {
+      cout << "O";
+    }
+
+    // Oyuncunun girdisini al
+    char girdi;
+    cin >> girdi;
+
+    // Oyuncunun girdisine göre uzaylıları hareket ettir
+    if (girdi == 'a') {
+      for (int i = 0; i < uzaylıSayisi; i++) {
+        uzaylılar[i][0]--;
+      }
+    } else if (girdi == 'd') {
+      for (int i = 0; i < uzaylıSayisi; i++) {
+        uzaylılar[i][0]++;
+      }
+    } else if (girdi == 'w') {
+      for (int i = 0; i < uzaylıSayisi; i++) {
+        uzaylılar[i][1]--;
+      }
+    } else if (girdi == 's') {
+      for (int i = 0; i < uzaylıSayisi; i++) {
+        uzaylılar[i][1]++;
+      }
+    }
+
+    // Uzaylıları yok et
+    for (int i = 0; i < uzaylıSayisi; i++) {
+      if (uzaylılar[i][0] == 0 || uzaylılar[i][0] == genişlik - 1 ||
+          uzaylılar[i][1] == 0 || uzaylılar[i][1] == yükseklik - 1) {
+        uzaylılar[i][0] = -1;
+      }
+    }
+
+    // Oyunun bitip bitmediğini kontrol et
+    for (int i = 0; i < uzaylıSayisi; i++) {
+      if (uzaylılar[i][0] != -1) {
+        continue;
+      }
+
+      cout << "Oyun bitti!" << endl;
+      return 0;
+    }
+  }
+
+  return 0;
+}
